@@ -53,3 +53,7 @@ end, { desc = "Toggle terminal (horizontal)" })
 vim.keymap.set("n", "<leader>tv", function()
   toggle_terminal(true)
 end, { desc = "Toggle terminal (vertical)" })
+
+-- Swap LazyVim's default terminal keys: lowercase = cwd, uppercase = root dir
+vim.keymap.set("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
+vim.keymap.set("n", "<leader>fT", function() Snacks.terminal(nil, { cwd = vim.fn.expand("~") }) end, { desc = "Terminal (root dir)" })
