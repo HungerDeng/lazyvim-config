@@ -8,6 +8,10 @@ vim.opt.titlelen = 0
 -- Terminal mode cursor: thin line (vertical bar) instead of a block
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:ver25-blinkon500-blinkoff500-TermCursor"
 
+-- Keep the cursor centered while scrolling
+vim.opt.scrolloff = 999
+vim.opt.sidescrolloff = 999
+
 local function git_branch()
   local result = vim
     .system({ "git", "branch", "--show-current" }, {
