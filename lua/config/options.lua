@@ -10,7 +10,6 @@ vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:ver25-blinkon50
 
 -- Keep the cursor centered while scrolling
 vim.opt.scrolloff = 999
-vim.opt.sidescrolloff = 999
 
 local function git_branch()
   local result = vim
