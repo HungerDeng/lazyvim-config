@@ -14,6 +14,9 @@ vim.opt.scrolloff = 999
 -- Wrap long lines in all buffers
 vim.opt.wrap = true
 
+-- forbidden the autoformat
+vim.g.autoformat = false
+
 local function git_branch()
   local result = vim
     .system({ "git", "branch", "--show-current" }, {
