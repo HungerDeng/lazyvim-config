@@ -2,6 +2,16 @@
 return {
   {
     "folke/snacks.nvim",
+    opts = {
+      picker = {
+        sources = {
+          explorer = {
+            hidden = true,
+            ignored = true,
+          },
+        },
+      },
+    },
     keys = {
       -- Explorer
       { "<leader>fe", function() Snacks.explorer() end, desc = "Explorer Snacks (cwd)" },
