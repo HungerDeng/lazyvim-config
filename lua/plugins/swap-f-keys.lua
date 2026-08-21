@@ -5,6 +5,22 @@ return {
     opts = {
       picker = {
         sources = {
+          files = {
+            win = {
+              input = {
+                keys = {
+                  ["H"] = { "toggle_hidden", mode = "n" },
+                  ["I"] = { "toggle_ignored", mode = "n" },
+                },
+              },
+              list = {
+                keys = {
+                  ["H"] = "toggle_hidden",
+                  ["I"] = "toggle_ignored",
+                },
+              },
+            },
+          },
           explorer = {
             hidden = true,
             ignored = true,
