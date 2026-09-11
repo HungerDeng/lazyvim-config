@@ -19,6 +19,13 @@ vim.keymap.set("x", "B", function()
   return vim.fn.mode() == "v" and "10b" or "B"
 end, { expr = true, desc = "Move back 10 words in visual mode" })
 
+vim.keymap.set("x", "<Tab>", function()
+  return vim.fn.mode() == "V" and ">gv" or "<Tab>"
+end, { expr = true, noremap = true, silent = true, desc = "Indent line selection" })
+vim.keymap.set("x", "<S-Tab>", function()
+  return vim.fn.mode() == "V" and "<gv" or "<S-Tab>"
+end, { expr = true, noremap = true, silent = true, desc = "Dedent line selection" })
+
 -- gh / gl to jump back/forward in the jump list (like Ctrl-O / Ctrl-I)
 vim.keymap.set("n", "gh", "<C-o>", { desc = "Jump back (like Ctrl-O)" })
 vim.keymap.set("n", "gl", "<C-i>", { desc = "Jump forward (like Ctrl-I)" })
