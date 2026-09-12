@@ -14,6 +14,9 @@ vim.opt.scrolloff = 999
 -- Wrap long lines in all buffers
 vim.opt.wrap = true
 
+-- Keep accepted spell-check words versioned with this configuration.
+vim.opt.spellfile = { vim.fn.stdpath("config") .. "/spell/en.utf-8.add" }
+
 -- forbidden the autoformat
 vim.g.autoformat = false
 
