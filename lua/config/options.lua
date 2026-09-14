@@ -17,6 +17,10 @@ vim.opt.wrap = true
 -- Keep accepted spell-check words versioned with this configuration.
 vim.opt.spellfile = { vim.fn.stdpath("config") .. "/spell/en.utf-8.add" }
 
+-- Keep English spell checking, but do not mark Chinese/East Asian characters
+-- as misspelled in prose buffers where LazyVim enables spell checking.
+vim.opt.spelllang = { "en", "cjk" }
+
 -- forbidden the autoformat
 vim.g.autoformat = false
 
