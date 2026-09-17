@@ -1,3 +1,4 @@
+-- top light colorschemes: https://vimcolorschemes.com/i/top/b.light
 return {
   {
     "catppuccin/nvim",
