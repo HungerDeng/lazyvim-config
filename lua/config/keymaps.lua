@@ -35,6 +35,32 @@ end, { expr = true, noremap = true, silent = true, desc = "Dedent line selection
 vim.keymap.set("n", "gh", "<C-o>", { desc = "Jump back (like Ctrl-O)" })
 vim.keymap.set("n", "gl", "<C-i>", { desc = "Jump forward (like Ctrl-I)" })
 
+-- [[ buffers related keymap start ]]
+-- built-in keymap: shift+h (H) to switch to the left buffers
+-- built-in keymap: shift+l (L) to switch to the right buffers
+--
+vim.keymap.set("n", "<D-h>", "<cmd>BufferLineMovePrev<cr>", { desc = "Move Buffer to the Left" })
+vim.keymap.set("n", "<D-l>", "<cmd>BufferLineMoveNext<cr>", { desc = "Move Buffer to the Right" })
+vim.keymap.set("n", "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", { desc = "Delete Buffers to the Left" })
+vim.keymap.set("n", "<leader>bl", "<cmd>BufferLineCloseRight<cr>", { desc = "Delete Buffers to the Right" })
+vim.keymap.set("n", "<leader>br", function()
+  Snacks.picker.recent({ filter = { cwd = true } })
+end, { desc = "Buffers Recent" })
+
+-- Open the buffer picker with the list focused in normal mode.
+vim.keymap.set("n", "<leader>bb", function()
+  Snacks.picker.buffers({ focus = "list" })
+end, { desc = "Buffers (Normal Mode)" })
+
+vim.keymap.set("n", "<leader>bt", function()
+  if vim.o.showtabline == 0 then
+    vim.o.showtabline = 2
+  else
+    vim.o.showtabline = 0
+  end
+end, { desc = "Toggle Bufferline" })
+-- [[ buffers related keymap end ]]
+
 -- clear the highlight
 vim.keymap.set("n", "<Leader><Leader>", "<cmd>nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })
 
