@@ -7,11 +7,38 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
+-- This autocmd is the ordinary-terminal counterpart to the Snacks terminal
+-- configuration in lua/plugins/snacks.lua. The responsibilities are kept
+-- separate because `:terminal` buffers and Snacks terminals are both terminal
+-- buffers, but they need different Escape behavior:
+--
+-- * ordinary `:terminal` buffers get a buffer-local single-<Esc> mapping here;
+-- * Snacks terminals get their mapping from Snacks' own window configuration;
+-- * LazyGit is a Snacks terminal, but opts out of that mapping so its <Esc>
+--   key can be handled by LazyGit and return from a staging panel.
+--
+-- The mapping must be buffer-local. A global terminal-mode mapping would also
+-- match LazyGit and consume <Esc> before the LazyGit process sees it. That is
+-- why the global single-Escape mapping in lua/config/keymaps.lua is intentionally disabled.
+
 -- Enter terminal mode when opening or focusing a terminal buffer
 vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter", "WinEnter" }, {
   pattern = "term://*",
-  callback = function()
-    if vim.bo.buftype == "terminal" then
+  callback = function(args)
+    if vim.bo[args.buf].buftype == "terminal" then
+      -- Keep single-Escape terminal mode exit for ordinary `:terminal`
+      -- buffers, but leave Snacks terminals (including LazyGit) alone.
+      if args.event == "TermOpen" and not vim.b[args.buf].snacks_terminal then
+        -- `buffer = args.buf` keeps this mapping limited to the ordinary
+        -- terminal that triggered TermOpen; it cannot affect LazyGit or any
+        -- other terminal buffer opened later.
+        vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], {
+          buffer = args.buf,
+          silent = true,
+          desc = "Exit terminal mode",
+        })
+      end
+
       vim.schedule(function()
         vim.cmd("startinsert")
       end)

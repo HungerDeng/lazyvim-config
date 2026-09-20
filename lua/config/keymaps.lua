@@ -38,8 +38,22 @@ vim.keymap.set("n", "gl", "<C-i>", { desc = "Jump forward (like Ctrl-I)" })
 -- clear the highlight
 vim.keymap.set("n", "<Leader><Leader>", "<cmd>nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })
 
--- Exit terminal mode easily with Escape
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+-- Terminal Escape handling is intentionally split across this file,
+-- lua/plugins/snacks.lua, and lua/config/autocmds.lua:
+--
+-- 1. lua/plugins/snacks.lua gives Snacks-created terminal buffers 
+--    (via <leader>ft, <leader>fT, or <Ctrl-/>) a single <Esc> mapping, 
+--    while explicitly disabling that mapping for LazyGit.
+-- 2. lua/config/autocmds.lua gives ordinary `:terminal` buffers their own
+--    buffer-local single-<Esc> mapping.
+-- 3. This file MUST NOT install a global terminal-mode <Esc> mapping. A global
+--    mapping applies to every terminal buffer, including LazyGit, and **consumes
+--    the Escape key before LazyGit** can use it to leave a staging panel.
+--
+-- Keeping the global mapping below DISABLED is therefore part of the design:
+-- the two more specific configurations can **coexist without competing for
+-- Escape**, and each terminal application receives the behavior it expects.
+-- vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 
 -- Swap LazyVim's default terminal keys: lowercase = cwd, uppercase = root dir
 vim.keymap.set({ "n", "t" }, "<leader>ft", function()
