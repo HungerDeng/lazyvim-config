@@ -8,5 +8,29 @@ return {
       { "<leader>bL", "<cmd>BufferLineCloseRight<cr>", desc = "Delete Buffers to the Right" },
       { "<leader>br", false }, -- disable LazyVim's delete-right
     },
+    opts = {
+      options = {
+        -- numbers = "ordinal",
+        show_buffer_close_icons = false,
+        indicator = {
+          style = "underline",
+        },
+      },
+      highlights = {
+        buffer_selected = {
+          sp = { attribute = "fg", highlight = "Constant" },
+          underline = true,
+        },
+        -- numbers_selected = {
+        --   sp = { attribute = "fg", highlight = "Constant" },
+        --   underline = true,
+        -- },
+        indicator_selected = {
+          fg = { attribute = "fg", highlight = "Constant" },
+          sp = { attribute = "fg", highlight = "Constant" },
+          underline = true,
+        },
+      },
+    },
   },
 }
