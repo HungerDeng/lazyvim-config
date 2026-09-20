@@ -8,5 +8,10 @@ return {
       { "<leader>bL", "<cmd>BufferLineCloseRight<cr>", desc = "Delete Buffers to the Right" },
       { "<leader>br", false }, -- disable LazyVim's delete-right
     },
+    opts = {
+      options = {
+        numbers = "ordinal",
+      },
+    },
   },
 }
