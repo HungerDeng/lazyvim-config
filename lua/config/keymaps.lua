@@ -35,58 +35,6 @@ end, { expr = true, noremap = true, silent = true, desc = "Dedent line selection
 vim.keymap.set("n", "gh", "<C-o>", { desc = "Jump back (like Ctrl-O)" })
 vim.keymap.set("n", "gl", "<C-i>", { desc = "Jump forward (like Ctrl-I)" })
 
---[[ buffers operatioins start ]]
---
--- H and L are inherited from LazyVim for SWITCHING buffers, 
--- defined in the ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua:12-13
--- { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
--- { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
---
--- Quickly jump to a visible buffer with <leader>{number}.
-local buffer_jump_group = vim.api.nvim_create_augroup("user_buffer_jump_mappings", { clear = true })
-
-local function buffer_display_name(element)
-  if element.path == "" then
-    return element.name ~= "" and element.name or "[No Name]"
-  end
-  return vim.fn.fnamemodify(element.path, ":~:.")
-end
-
-local function refresh_buffer_jump_mappings()
-  local ok, bufferline = pcall(require, "bufferline")
-  if not ok then
-    return
-  end
-
-  local elements = bufferline.get_elements().elements
-
-  for i = 1, 9 do
-    pcall(vim.keymap.del, "n", "<leader>" .. i)
-  end
-
-  for i = 1, math.min(#elements, 9) do
-    local buffer_id = elements[i].id
-    vim.keymap.set("n", "<leader>" .. i, function()
-      if vim.api.nvim_buf_is_valid(buffer_id) then
-        vim.api.nvim_set_current_buf(buffer_id)
-      end
-    end, {
-      desc = buffer_display_name(elements[i]),
-      silent = true,
-    })
-  end
-end
-
-vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete", "BufEnter", "BufFilePost", "SessionLoadPost" }, {
-  group = buffer_jump_group,
-  callback = function()
-    vim.schedule(refresh_buffer_jump_mappings)
-  end,
-})
-
-vim.schedule(refresh_buffer_jump_mappings)
---[[ buffers operatioins end ]]
-
 -- clear the highlight
 vim.keymap.set("n", "<Leader><Leader>", "<cmd>nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })
 
