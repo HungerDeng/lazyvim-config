@@ -19,10 +19,15 @@ vim.keymap.set("x", "B", function()
   return vim.fn.mode() == "v" and "10b" or "B"
 end, { expr = true, desc = "Move back 10 words in visual mode" })
 
+-- Tab / Shift+Tab to indent/dedent in visual-line mode
 vim.keymap.set("x", "<Tab>", function()
+  -- ">gv" meaning:
+  -- ">": indicates appling ">" to indent the line
+  -- "gv": re-enter the visual-line mode, preserving already selected lines
   return vim.fn.mode() == "V" and ">gv" or "<Tab>"
 end, { expr = true, noremap = true, silent = true, desc = "Indent line selection" })
 vim.keymap.set("x", "<S-Tab>", function()
+  -- similar to the ">gv"
   return vim.fn.mode() == "V" and "<gv" or "<S-Tab>"
 end, { expr = true, noremap = true, silent = true, desc = "Dedent line selection" })
 
