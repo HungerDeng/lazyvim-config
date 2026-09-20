@@ -35,6 +35,15 @@ end, { expr = true, noremap = true, silent = true, desc = "Dedent line selection
 vim.keymap.set("n", "gh", "<C-o>", { desc = "Jump back (like Ctrl-O)" })
 vim.keymap.set("n", "gl", "<C-i>", { desc = "Jump forward (like Ctrl-I)" })
 
+--[[ windows operations start ]]
+vim.keymap.set("n", "<leader>h", "<C-w>h", {desc = "move to the left-side window"})
+vim.keymap.set("n", "<leader>l", "<C-w>l", {desc = "move to the right-side window"})
+vim.keymap.set("n", "<leader>j", "<C-w>j", {desc = "move to the down-side window"})
+vim.keymap.set("n", "<leader>k", "<C-w>k", {desc = "move to the up-side window"})
+vim.keymap.set("n", "<leader>v", "<C-w>v", { desc = "Split Window Vertical" })
+vim.keymap.set("n", "Q", "<cmd>q<cr>", { desc = "Quit" })
+--[[ windows operations end ]]
+
 -- [[ buffers related keymap start ]]
 -- built-in keymap: shift+h (H) to switch to the left buffers
 -- built-in keymap: shift+l (L) to switch to the right buffers
