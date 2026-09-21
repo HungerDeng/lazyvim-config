@@ -6,6 +6,7 @@ vim.keymap.set("n", "J", "25j", { desc = "Move down 25 lines" })
 vim.keymap.set("n", "K", "25k", { desc = "Move up 25 lines" })
 vim.keymap.set("n", "W", "10w", { desc = "Move forward 10 words" })
 vim.keymap.set("n", "B", "10b", { desc = "Move back 10 words" })
+vim.keymap.set("n", "E", "ge", { desc = "Move to previous word end" })
 vim.keymap.set("x", "J", function()
   return vim.fn.mode() == "V" and "10j" or "J"
 end, { expr = true, desc = "Move down 10 lines in visual-line mode" })
