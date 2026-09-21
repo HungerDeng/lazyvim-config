@@ -7,6 +7,15 @@ vim.keymap.set("n", "K", "25k", { desc = "Move up 25 lines" })
 vim.keymap.set("n", "W", "10w", { desc = "Move forward 10 words" })
 vim.keymap.set("n", "B", "10b", { desc = "Move back 10 words" })
 vim.keymap.set("n", "E", "ge", { desc = "Move to previous word end" })
+-- Disabled: Cmd/Option keys are encoded by the terminal before Neovim sees
+-- them. These <D-left/right>/<M-left/right> mappings only work when the terminal forwards
+-- the exact matching key codes; Ghostty may consume them or send DIFFERENT
+-- escape sequences instead, so these mappings were never triggered.
+-- e.g., iterm2 will consume <D-left/right> itself. 
+-- vim.keymap.set("i", "<D-Left>", "<C-o>0", { desc = "Move to line start" })
+-- vim.keymap.set("i", "<D-Right>", "<C-o>$", { desc = "Move to line end" })
+-- vim.keymap.set("i", "<M-Left>", "<C-o>ge", { desc = "Move to previous word end" })
+-- vim.keymap.set("i", "<M-Right>", "<C-o>e", { desc = "Move to next word end" })
 vim.keymap.set("x", "J", function()
   return vim.fn.mode() == "V" and "10j" or "J"
 end, { expr = true, desc = "Move down 10 lines in visual-line mode" })
