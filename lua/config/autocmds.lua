@@ -45,3 +45,23 @@ vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter", "WinEnter" }, {
     end
   end,
 })
+
+-- A directory passed to Neovim (for example, `nvim .`) can remain as a
+-- hidden, listed buffer after Snacks replaces it with its explorer. If that
+-- buffer is written into a Persistence session, restoring the session makes
+-- Snacks interpret it as another request to open the explorer.
+local function delete_directory_buffers()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted then
+      local name = vim.api.nvim_buf_get_name(buf)
+      if name ~= "" and vim.fn.isdirectory(name) == 1 then
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = { "PersistenceSavePre", "PersistenceLoadPost" },
+  callback = delete_directory_buffers,
+})
