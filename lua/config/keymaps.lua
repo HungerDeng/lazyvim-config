@@ -7,6 +7,10 @@ vim.keymap.set("n", "K", "25k", { desc = "Move up 25 lines" })
 vim.keymap.set("n", "W", "10w", { desc = "Move forward 10 words" })
 vim.keymap.set("n", "B", "10b", { desc = "Move back 10 words" })
 vim.keymap.set("n", "E", "ge", { desc = "Move to previous word end" })
+-- on Mac, the cmd+a is "<D-a>". 
+-- However, in most terminal apps like Ghostty, iterm2, etc. use <D-a> to select all too, selecting all the content in their terminal tabs, which includes the bufferline and statueline of the Neovim, not just the buffer content.
+-- This is why I use "<C-a>" (ctrl+a) as the keymap
+vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all lines" })
 -- Disabled: Cmd/Option keys are encoded by the terminal before Neovim sees
 -- them. These <D-left/right>/<M-left/right> mappings only work when the terminal forwards
 -- the exact matching key codes; Ghostty may consume them or send DIFFERENT
