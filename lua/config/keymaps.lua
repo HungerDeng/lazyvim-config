@@ -9,8 +9,8 @@ vim.keymap.set("n", "B", "10b", { desc = "Move back 10 words" })
 vim.keymap.set("n", "E", "ge", { desc = "Move to previous word end" })
 -- on Mac, the cmd+a is "<D-a>". 
 -- However, in most terminal apps like Ghostty, iterm2, etc. use <D-a> to select all too, selecting all the content in their terminal tabs, which includes the bufferline and statueline of the Neovim, not just the buffer content.
--- This is why I use "<C-a>" (ctrl+a) as the keymap
-vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all lines" })
+-- This is why I use "<M-a>" (Option+a) as the keymap
+vim.keymap.set("n", "<M-a>", "ggVG", { desc = "Select all lines" })
 -- Disabled: Cmd/Option keys are encoded by the terminal before Neovim sees
 -- them. These <D-left/right>/<M-left/right> mappings only work when the terminal forwards
 -- the exact matching key codes; Ghostty may consume them or send DIFFERENT
@@ -62,8 +62,9 @@ vim.keymap.set("n", "Q", "<cmd>q<cr>", { desc = "Quit" })
 -- built-in keymap: shift+h (H) to switch to the left buffers
 -- built-in keymap: shift+l (L) to switch to the right buffers
 --
-vim.keymap.set("n", "<D-h>", "<cmd>BufferLineMovePrev<cr>", { desc = "Move Buffer to the Left" })
-vim.keymap.set("n", "<D-l>", "<cmd>BufferLineMoveNext<cr>", { desc = "Move Buffer to the Right" })
+-- M-h: Option-h, M-l: Option-l
+vim.keymap.set("n", "<M-h>", "<cmd>BufferLineMovePrev<cr>", { desc = "Move Buffer to the Left" })
+vim.keymap.set("n", "<M-l>", "<cmd>BufferLineMoveNext<cr>", { desc = "Move Buffer to the Right" })
 vim.keymap.set("n", "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", { desc = "Delete Buffers to the Left" })
 vim.keymap.set("n", "<leader>bl", "<cmd>BufferLineCloseRight<cr>", { desc = "Delete Buffers to the Right" })
 vim.keymap.set("n", "<leader>br", function()
